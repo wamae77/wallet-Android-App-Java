@@ -12,7 +12,7 @@ public class RetrofitInstance {
          */
         if (OUR_INSTANCE == null)
             OUR_INSTANCE = new Retrofit.Builder()
-                    .baseUrl("http:Localhost/api/v1/")
+                    .baseUrl("http:Localhost:8092/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         return OUR_INSTANCE;
