@@ -20,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class transactionViewModel extends ViewModel {
+public class TransactionViewModel extends ViewModel {
     public MutableLiveData<JsonObject> responseData = new MutableLiveData<>();
     public MutableLiveData<List<Transaction>> listMutableLiveData = new MutableLiveData<>();
 
@@ -43,6 +43,29 @@ public class transactionViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(context.getApplicationContext(), "error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getListOfTransactions(Context context,Customer customer){
+        Retrofit retrofit = RetrofitInstance.getInstance();
+        transactionApi transactionApi = retrofit.create(transactionApi.class);
+        Call<List<Transaction>> call = transactionApi.getTransactions(customer);
+        call.enqueue(new Callback<List<Transaction>>() {
+            @Override
+            public void onResponse(Call<List<Transaction>> call, Response<List<Transaction>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, "response" + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (response.body() != null) {
+                    listMutableLiveData.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Transaction>> call, Throwable t) {
                 Toast.makeText(context.getApplicationContext(), "error" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

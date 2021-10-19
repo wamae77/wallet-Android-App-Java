@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Account {
     @Id(autoincrement = true)
-    private long Id;
+    private Long Id;
     private String accountNo;
     private String customerId;
     private Double balance;
@@ -20,8 +20,8 @@ public class Account {
         this.balance = balance;
     }
 
-    @Generated(hash = 33613580)
-    public Account(long Id, String accountNo, String customerId, Double balance) {
+    @Generated(hash = 709307487)
+    public Account(Long Id, String accountNo, String customerId, Double balance) {
         this.Id = Id;
         this.accountNo = accountNo;
         this.customerId = customerId;
@@ -42,11 +42,11 @@ public class Account {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

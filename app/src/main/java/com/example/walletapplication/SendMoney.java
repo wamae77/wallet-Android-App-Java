@@ -1,7 +1,6 @@
 package com.example.walletapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
@@ -13,9 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.walletapplication.api.viewModels.customerViewModel;
-import com.example.walletapplication.api.viewModels.transactionViewModel;
-import com.example.walletapplication.models.Customer;
+import com.example.walletapplication.api.viewModels.TransactionViewModel;
+import com.example.walletapplication.models.DaoSession;
+import com.example.walletapplication.models.Transaction;
+import com.example.walletapplication.models.TransactionDao;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 
@@ -48,11 +48,24 @@ public class SendMoney extends AppCompatActivity {
         jsonObject.addProperty("accountFrom",accountNo);
         jsonObject.addProperty("accountTo",editText1.getText().toString().toUpperCase());
         jsonObject.addProperty("amount",editText2.getText().toString());
+        insertRecordIntoDb(jsonObject);
+
+    }
+
+    private void insertRecordIntoDb(JsonObject jsonObject) {
+        Transaction transaction = new Transaction(jsonObject.get("accountFrom").getAsString(),
+                jsonObject.get("amount").getAsString(),
+                jsonObject.get("accountTo").getAsString());
+
+        DaoSession daoSession = ((App) getApplication()).getDaoSession();
+        TransactionDao transactionDao = daoSession.getTransactionDao();
+        long id =transactionDao.insert(transaction);
+        System.out.println("summ"+id);
         requestSendMoney(jsonObject);
     }
 
     private void requestSendMoney(JsonObject jsonObject){
-        transactionViewModel cv =  new ViewModelProvider(this).get(transactionViewModel.class);
+        TransactionViewModel cv =  new ViewModelProvider(this).get(TransactionViewModel.class);
         cv.sendMoney(this,jsonObject);
         cv.responseData.observe(this, jsonObject1 -> initDialog());
 

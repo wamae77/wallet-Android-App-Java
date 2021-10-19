@@ -7,6 +7,9 @@ public class RetrofitInstance {
     private static Retrofit OUR_INSTANCE;
     public static Retrofit getInstance(){
 
+        /*
+            change the url
+         */
         if (OUR_INSTANCE == null)
             OUR_INSTANCE = new Retrofit.Builder()
                     .baseUrl("http://192.168.100.126:8092/api/v1/")

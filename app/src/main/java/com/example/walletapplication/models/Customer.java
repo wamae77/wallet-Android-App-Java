@@ -10,7 +10,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Customer {
     @Id(autoincrement = true)
-    private long Id;
+    private Long Id;
     private String customerId;
     private String email;
     private String firstName;
@@ -32,8 +32,8 @@ public class Customer {
         this.pin = pin;
     }
 
-    @Generated(hash = 1168809941)
-    public Customer(long Id, String customerId, String email, String firstName, String lastName, String pin,
+    @Generated(hash = 168766276)
+    public Customer(Long Id, String customerId, String email, String firstName, String lastName, String pin,
             String accountNo) {
         this.Id = Id;
         this.customerId = customerId;
@@ -61,11 +61,11 @@ public class Customer {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

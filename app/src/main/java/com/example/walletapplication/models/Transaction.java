@@ -7,20 +7,23 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Transaction {
     @Id(autoincrement = true)
-    private long Id;
+    private Long Id;
     private String accountNo;
     private String amount;
+    private String accountTo;
 
-    public Transaction(String accountNo, String amount) {
+    public Transaction(String accountNo, String amount,String accountTo) {
         this.accountNo = accountNo;
         this.amount = amount;
+        this.accountTo=accountTo;
     }
 
-    @Generated(hash = 1709764052)
-    public Transaction(long Id, String accountNo, String amount) {
+    @Generated(hash = 189628579)
+    public Transaction(Long Id, String accountNo, String amount, String accountTo) {
         this.Id = Id;
         this.accountNo = accountNo;
         this.amount = amount;
+        this.accountTo = accountTo;
     }
 
     @Generated(hash = 750986268)
@@ -33,14 +36,15 @@ public class Transaction {
                 "Id=" + Id +
                 ", accountNo='" + accountNo + '\'' +
                 ", amount='" + amount + '\'' +
+                ", accountTo='" + accountTo + '\'' +
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 
@@ -62,5 +66,13 @@ public class Transaction {
 
     public void setId(long Id) {
         this.Id = Id;
+    }
+
+    public String getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(String accountTo) {
+        this.accountTo = accountTo;
     }
 }
